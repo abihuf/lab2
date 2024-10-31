@@ -104,7 +104,8 @@ public class Main {
         int n = in.nextInt();
         int m = in.nextInt();
         int[][] a = new int[n][m];
-        int c = 0, sum = 0;
+        int c = 0;
+        double sum = 0;
 
         //Ввод с консоли элементов массива размером NxM
         //Также вычисляем их количество и среднее арифметическое всех нечетных элементов массива
@@ -117,6 +118,7 @@ public class Main {
                 }
             }
         }
+        double ave = sum/c;
 
         //Сортировка каждого столбца массива по возрастанию методом пузырька
         int x;
@@ -133,12 +135,12 @@ public class Main {
         }
 
         //Сортировка каждой строки массива по убыванию методом вставок
-        for (int i = 0; i < n; i ++) {
+        for (int i = 0; i < n; i++) {
             for (int j = 1; j < m; j++) {
                 int current = a[i][j];
                 int k = j;
-                while (k > 0 && a[i][k-1] < current) {
-                    a[i][k] = a[i][k-1];
+                while (k > 0 && a[i][k - 1] < current) {
+                    a[i][k] = a[i][k - 1];
                     k--;
                 }
                 a[i][k] = current;
@@ -146,8 +148,12 @@ public class Main {
         }
 
         //Сортировка главной диагонали по возрастанию
-        for (int k = 1; k < m; k++) {
-            for (int i = 0; i < n - 1; i++) {
+        int min = 1000000000;
+        if (n < m)
+            min = n;
+        else min = m;
+        for (int k = 1; k < min; k++) {
+            for (int i = 0; i < min - 1; i++) {
                 if (a[i][i] > a[i + 1][i + 1]) {
                     x = a[i + 1][i + 1];
                     a[i + 1][i + 1] = a[i][i];
@@ -155,7 +161,6 @@ public class Main {
                 }
             }
         }
-
         //Вывод зигзагом
         int counter = 0;
         int n0 = 0, m0 = 0;
@@ -165,7 +170,7 @@ public class Main {
                 m0 += 1;
                 counter += 1;
             }
-            if (counter == n) {
+            if (counter == m) {
                 n0 += 1;
                 counter = 0;
                 m0 -= 1;
@@ -176,7 +181,7 @@ public class Main {
                 m0 -= 1;
                 counter += 1;
             }
-            if (counter == n) {
+            if (counter == m) {
                 n0 += 1;
                 counter = 0;
                 m0 += 1;
@@ -191,7 +196,7 @@ public class Main {
             for (int j = 0; j < m; j++) {
                 if (a[i][j] % 2 == 0)
                     a[i][j] = -a[i][j];
-                else a[i][j] = (int)Math.pow(a[i][j], 2);
+                else a[i][j] = (int) Math.pow(a[i][j], 2);
                 out.print(a[i][j] + " ");
             }
             out.println();
@@ -263,6 +268,10 @@ public class Main {
 
     - **Output**:
         ```
+        -1 2 -9 -2 6 11 13 9 7 
+         1 -2 81 
+         121 -6 2 
+         169 81 49
         ```
         
 6. Тест: 
@@ -275,6 +284,8 @@ public class Main {
 
     - **Output**:
         ```
+        19 17 15 11 9 -2 -8 -14 
+        361 289 225 121 81 2 8 14
         ```
         
 7. Тест: 
@@ -287,6 +298,12 @@ public class Main {
 
     - **Output**:
         ```
+        -10 -12 -17 -9 -5 2 11 6 1 7 15 16 20 19 18 
+         10 12 289 
+         -2 25 81 
+         121 -6 1 
+         -16 225 49 
+         -20 361 -18 
         ```
         
 8. Тест: 
@@ -299,4 +316,11 @@ public class Main {
 
     - **Output**:
         ```
+        -7 -2 1 3 6 10 
+         49 
+         2 
+         1 
+         9 
+         -6 
+         -10 
         ```
